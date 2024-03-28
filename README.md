@@ -1,6 +1,6 @@
 # Legraph
 
-##Sobre o APP
+## Sobre o APP
 
 O aplicativo Legraph é uma ferramenta util para tomadas de decisões em League of legends, onde jogadores poderão analisar suas estátisticas pós partida, ajudando-o a reconhecer pontos fortes e fracos dentro do league of legends.
 Para usa-lo é muito simples, basta se cadastrar(Se não tiver uma conta) e logar no app, após fazer o login você poderá ver as suas ultimas partidas(Com estátisticas importantes), principais campeões jogados e taxa de vitoria.
