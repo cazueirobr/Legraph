@@ -27,16 +27,10 @@ Link > https://www.figma.com/file/jpSny0wSiix9DxCjY0jjLQ/Untitled?type=design&no
 
 ## Sprints
 
-## Planejamento das Sprints
+| Sprint                        | Período          | Objetivo                                 |
+|-------------------------------|------------------|------------------------------------------|
+| :one: Tela de Login e Cadastro| 06/04/2024 - 07/04/2024 | Desenvolver páginas de login e cadastro |
+| :two: Tela Principal          | 12/04/2024 - 14/04/2024 | Criar a interface principal do aplicativo|
+| :three: Tela de Edição de Conta e Roteamento | 20/04/2024 - 21/04/2024 | Desenvolver funcionalidades de edição de conta e roteamento |
+| :four: Ajustes                | 26/04/2024 - 27/04/2024 | Realizar ajustes e refinamentos necessários |
 
-### Sprint 1: Tela de Login e Cadastro
-- **Período:** 06/04/2024 - 07/04/2024
-
-### Sprint 2: Tela Principal
-- **Período:** 12/04/2024 - 14/04/2024
-
-### Sprint 3: Tela de Edição de Conta e Roteamento
-- **Período:** 20/04/2024 - 21/04/2024
-
-### Sprint 4: Ajustes
-- **Período:** 26/04/2024 - 27/04/2024
