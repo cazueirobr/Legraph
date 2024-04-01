@@ -27,10 +27,16 @@ Link > https://www.figma.com/file/jpSny0wSiix9DxCjY0jjLQ/Untitled?type=design&no
 
 ## Sprints
 
-| Sprint                        | Período          | Objetivo                                 |
-|-------------------------------|------------------|------------------------------------------|
-| :one: Tela de Login e Cadastro| 06/04/2024 - 07/04/2024 | Desenvolver páginas de login e cadastro |
-| :two: Tela Principal          | 12/04/2024 - 14/04/2024 | Criar a interface principal do aplicativo|
-| :three: Tela de Edição de Conta e Roteamento | 20/04/2024 - 21/04/2024 | Desenvolver funcionalidades de edição de conta e roteamento |
-| :four: Ajustes                | 26/04/2024 - 27/04/2024 | Realizar ajustes e refinamentos necessários |
+| Sprint                                      | Período                      | Objetivo                                                                |
+|---------------------------------------------|------------------------------|-------------------------------------------------------------------------|
+| :one: Tela de Login e Cadastro              | 06/04/2024 - 07/04/2024      | Desenvolver telas de login e cadastro                                   |
+| :two: Tela Principal                        | 12/04/2024 - 14/04/2024      | Criar a tela principal do aplicativo                                    |
+| :three: Tela de Edição de Conta e Roteamento| 20/04/2024 - 21/04/2024      | Desenvolver tela de edição de conta e implementar roteamentos           |
+| :four: Ajustes                              | 26/04/2024 - 27/04/2024      | Realizar ajustes necessários                                             |
+| :five: Cadastro de Contas e Login           | 06/05/2024 - 07/05/2024      | Implementar funcionalidade de cadastro de contas e login                |
+| :six: Edição de Contas                      | 13/05/2024 - 14/05/2024      | Desenvolver funcionalidade de edição de contas                          |
+| :seven: Requisições de busca de jogador     | 20/05/2024 - 26/05/2024      | Implementar requisições de busca de jogador para a API da Riot Games     |
+| :eight: Cabeçalho de Invocador              | 01/06/2024 - 02/06/2024      | Desenvolver o cabeçalho de invocador                                    |
+| :nine: Busca por Partidas                   | 08/06/2024 - 10/06/2024      | Implementar funcionalidade de busca por partidas e iniciar empacotamento |
+| :keycap_ten: Ajustes                        | 10/06/2024 - 16/06/2024      | Realizar ajustes necessários                                             |
 
