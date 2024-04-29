@@ -12,7 +12,7 @@ export default function register() {
         <Inputs backgroundColor='#A22C09' title='senha'></Inputs>
         <Inputs backgroundColor='#A22C09'></Inputs>
         <Inputs backgroundColor='#A22C09' title='Nickname#TAG'></Inputs>
-        <Buttons BackgroundColor='#7379FE' title='CADASTRAR'></Buttons>
+        <Buttons backgroundColor='#7379FE' title='CADASTRAR' linkTo='index'></Buttons>
 
     </View>
   )

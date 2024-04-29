@@ -13,8 +13,8 @@ export default function Page() {
       </View>
         <Inputs backgroundColor="#C9A46C" title="E-mail"></Inputs>
         <Inputs backgroundColor="#C9A46C" title="Senha" password={true}></Inputs>
-        <Buttons BackgroundColor="#FE7392" title="Entrar"></Buttons>
-        <Link href="main/mainPage">paginja principal</Link>
+        <Buttons backgroundColor="#FE7392" title="Entrar" linkTo="main/mainPage"></Buttons>
+
         <Text style={styles.text}>Não tem uma conta?<Link style={styles.linkText} href="/register">Clique aqui!</Link> </Text>
       </View>
 
@@ -24,7 +24,7 @@ export default function Page() {
 const styles = StyleSheet.create({
   text: {
     marginTop: 20,
-    textAlign: 'center', // Centraliza horizontalmente
+    textAlign: 'center', 
   },
   linkText: {
     color: 'blue',
