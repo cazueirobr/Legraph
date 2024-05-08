@@ -1,7 +1,15 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 
-const ChampionElement = ({ champion }) => {
+
+interface MainChampion{
+  photo: any;
+  winRate: number;
+  kda: number;
+  maestria: string;
+}
+
+const ChampionElement = ({ champion }: {champion : MainChampion}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.mainChampion}>Main Champion</Text>
