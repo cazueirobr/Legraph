@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import Inputs from "../components/forms/Inputs";
 import LoginHeader from "../components/Headers/LoginHeader";
 import { Link } from "expo-router";
@@ -8,6 +8,7 @@ import Buttons from "../components/forms/Buttons";
 export default function Page() {
   return (
     <View>
+      <ScrollView>
       <View style={styles.header}>
         <LoginHeader></LoginHeader>
       </View>
@@ -16,6 +17,7 @@ export default function Page() {
         <Buttons backgroundColor="#FE7392" title="Entrar" linkTo="main/mainPage"></Buttons>
 
         <Text style={styles.text}>Não tem uma conta?<Link style={styles.linkText} href="/register">Clique aqui!</Link> </Text>
+      </ScrollView>
       </View>
 
   );

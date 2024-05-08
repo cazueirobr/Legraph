@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import MainHeader from '../../components/Headers/MainHeader';
 import GamesScoreBoard from '../../components/Games/GamesScoreBoard';
 import ChampionElement from '../../components/Games/MainChampion';
@@ -14,9 +14,11 @@ export default function mainPage() {
 
   return (
     <View style={styles.visu}>
-      <MainHeader />
-      <ChampionElement champion={mockChampion} />
-      <GamesScoreBoard />
+      <ScrollView>
+        <MainHeader />
+        <ChampionElement champion={mockChampion} />
+        <GamesScoreBoard />
+      </ScrollView>
     </View>
   );
 }
