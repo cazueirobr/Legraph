@@ -5,10 +5,12 @@ import EditHeader from '../../components/Headers/EditHeader';
 import Inputs from '../../components/forms/Inputs';
 import Buttons from '../../components/forms/Buttons';
 import useAuth from '../../firebase/hooks/useAuth';
-import useCollection from '../../firebase/hooks/useCollection'; // Certifique-se de importar o hook
+import useCollection from '../../firebase/hooks/useCollection';
+import { useRouter } from 'expo-router';
 
 export default function EditUser() {
-  const { user, loading: authLoading } = useAuth();
+  const { user, logout, loading: authLoading } = useAuth();
+  const router = useRouter();
 
   const [email, setEmail] = useState('');
   const [password1, setPassword1] = useState('');
@@ -21,9 +23,14 @@ export default function EditUser() {
     if (user && user.email) {
       setEmail(user.email);
       (async () => {
-        const userData = await getById(email);
-        if (userData && userData.nickName) {
-          setNickName(userData.nickName);
+        try {
+          const userData = await getById(user.email);
+          console.log('UserData:', userData);
+          if (userData && userData.nickName) {
+            setNickName(userData.nickName);
+          }
+        } catch (error) {
+          console.error('Failed to fetch user data:', error);
         }
       })();
     }
@@ -32,6 +39,15 @@ export default function EditUser() {
   if (authLoading || docLoading) {
     return <Text>Loading...</Text>;
   }
+
+  const handlePress = async () => {
+    try {
+      await logout();
+      router.push("/");
+    } catch (error) {
+      console.error('Failed to logout:', error);
+    }
+  };
 
   return (
     <View>
@@ -63,7 +79,12 @@ export default function EditUser() {
         <Buttons
           backgroundColor='#7FDBE0'
           title='Atualizar'
-          linkTo='mainPage'
+          onPress={handlePress}
+        />
+        <Buttons
+          backgroundColor='#7FDBE0'
+          title='logout'
+          onPress={handlePress}
         />
       </ScrollView>
     </View>
