@@ -8,10 +8,8 @@ import {
 import { useEffect, useState } from "react";
 import useFirebase from "./useFirebase";
 
-export type Book = {
-  id?: string;
-  title: string;
-  pages: number;
+export type Account = {
+  nickName?: string;
 };
 
 /**

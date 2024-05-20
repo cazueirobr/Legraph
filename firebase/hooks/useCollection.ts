@@ -7,6 +7,7 @@ import {
   getDocs,
   getFirestore,
   updateDoc,
+  setDoc,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import useFirebase from "./useFirebase";
@@ -32,8 +33,10 @@ export default function useCollection<T extends { [x: string]: any }>(
    * @param newVal A new record of collection type.
    * @returns Id of the created document.
    */
-  const create = async (newVal: T) => {
-    const docRef = await addDoc(collection(db, collectionName), newVal);
+  const create = async (newVal: T, email: string) => {
+    const documentId = email;  
+    const docRef = doc(db, collectionName, documentId); 
+    await setDoc(docRef, newVal); 
     return docRef.id;
   };
 

@@ -1,10 +1,13 @@
-import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import MainHeader from '../../components/Headers/MainHeader';
 import GamesScoreBoard from '../../components/Games/GamesScoreBoard';
 import ChampionElement from '../../components/Games/MainChampion';
 
+
+
 export default function mainPage() {
+
   const mockChampion = {
     photo: require('../../assets/headerImages/Zed.jpg'),
     winRate: 51,
@@ -14,11 +17,9 @@ export default function mainPage() {
 
   return (
     <View style={styles.visu}>
-      <ScrollView>
         <MainHeader />
         <ChampionElement champion={mockChampion} />
         <GamesScoreBoard />
-      </ScrollView>
     </View>
   );
 }
