@@ -4,6 +4,7 @@ import {
   deleteDoc,
   doc,
   getCountFromServer,
+  getDoc,
   getDocs,
   getFirestore,
   updateDoc,
@@ -75,6 +76,25 @@ export default function useCollection<T extends { [x: string]: any }>(
   };
 
   /**
+   * Get a document by its ID.
+   * @param id Document id to be retrieved.
+   * @returns The document data if found, otherwise null.
+   */
+  const getById = async (id: string) => {
+    setLoading(true);
+    const docRef = doc(db, collectionName, id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const data = docSnap.data() as T;
+      setLoading(false);
+      return { id: docSnap.id, ...data };
+    } else {
+      setLoading(false);
+      return null;
+    }
+  };
+
+  /**
    * get the number of Documents
    * @returns the count as number
    */
@@ -99,5 +119,5 @@ export default function useCollection<T extends { [x: string]: any }>(
     // eslint-disable-next-line
   }, []);
 
-  return { data, loading, create, remove, update, all, count, refreshData };
+  return { data, loading, create, remove, update, all, getById, count, refreshData };
 }
