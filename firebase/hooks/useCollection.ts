@@ -4,13 +4,18 @@ import {
   deleteDoc,
   doc,
   getCountFromServer,
+  getDoc,
   getDocs,
   getFirestore,
   updateDoc,
   setDoc,
-} from "firebase/firestore";
-import { useEffect, useState } from "react";
-import useFirebase from "./useFirebase";
+} from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import useFirebase from './useFirebase';
+
+interface DocumentData {
+  [key: string]: any;
+}
 
 /**
  * Hook to access and manage a firestore collection.
@@ -18,7 +23,7 @@ import useFirebase from "./useFirebase";
  * @param precache Should all records be loaded when hook starts? default is true. Avoid using with big collections.
  * @returns
  */
-export default function useCollection<T extends { [x: string]: any }>(
+export default function useCollection<T extends DocumentData>(
   collectionName: string,
   precache = true
 ) {
@@ -34,9 +39,9 @@ export default function useCollection<T extends { [x: string]: any }>(
    * @returns Id of the created document.
    */
   const create = async (newVal: T, email: string) => {
-    const documentId = email;  
-    const docRef = doc(db, collectionName, documentId); 
-    await setDoc(docRef, newVal); 
+    const documentId = email;
+    const docRef = doc(db, collectionName, documentId);
+    await setDoc(docRef, newVal);
     return docRef.id;
   };
 
@@ -74,6 +79,20 @@ export default function useCollection<T extends { [x: string]: any }>(
     return dataAsMap;
   };
 
+  const getById = async (id: string) => {
+    setLoading(true);
+    const docRef = doc(db, collectionName, id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const data = docSnap.data() as T;
+      setLoading(false);
+      return { id: docSnap.id, ...data };
+    } else {
+      setLoading(false);
+      return null;
+    }
+  };
+
   /**
    * get the number of Documents
    * @returns the count as number
@@ -99,5 +118,5 @@ export default function useCollection<T extends { [x: string]: any }>(
     // eslint-disable-next-line
   }, []);
 
-  return { data, loading, create, remove, update, all, count, refreshData };
+  return { data, loading, create, remove, update, all, getById, count, refreshData };
 }
