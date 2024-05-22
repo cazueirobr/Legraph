@@ -1,6 +1,7 @@
 import { View, Text, ScrollView, Alert } from 'react-native';
 import React, { useState, useEffect } from 'react';
 
+
 import EditHeader from '../../components/Headers/EditHeader';
 import Inputs from '../../components/forms/Inputs';
 import Buttons from '../../components/forms/Buttons';
@@ -19,6 +20,7 @@ export default function EditUser() {
   const [nickname, setNickName] = useState<string>('');
 
   const { getById, update, loading: docLoading } = useCollection('Accounts');
+
 
   useEffect(() => {
     if (user && user.email) {
@@ -53,7 +55,7 @@ export default function EditUser() {
 
       const updatedData = { nickName: nickname };
       await update(user?.email as string, updatedData);
-
+      
       Alert.alert('Sucesso', 'Informações do usuário atualizadas');
     } catch (error) {
       console.error('Falha ao atualizar usuário:', error);

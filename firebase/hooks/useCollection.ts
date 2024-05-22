@@ -79,11 +79,6 @@ export default function useCollection<T extends DocumentData>(
     return dataAsMap;
   };
 
-  /**
-   * Get a document by its ID.
-   * @param id Document id to be retrieved.
-   * @returns The document data if found, otherwise null.
-   */
   const getById = async (id: string) => {
     setLoading(true);
     const docRef = doc(db, collectionName, id);

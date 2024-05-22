@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import {
   User,
   createUserWithEmailAndPassword,
@@ -9,6 +10,7 @@ import {
   updateEmail,
 } from 'firebase/auth';
 import useFirebase from './useFirebase';
+
 
 /**
  * Firebase authentication hook.
@@ -27,6 +29,7 @@ export default function useAuth() {
   const login = async (email: string, password: string) => {
     if (!auth) throw new Error('Auth not initialized in FirebaseContextProvider!');
 
+
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
@@ -41,6 +44,7 @@ export default function useAuth() {
   const logout = async () => {
     if (!auth) throw new Error('Auth not initialized in FirebaseContextProvider!');
 
+
     await signOut(auth);
   };
 
@@ -51,6 +55,7 @@ export default function useAuth() {
    */
   const registerUser = async (email: string, password: string) => {
     if (!auth) throw new Error('Auth not initialized in FirebaseContextProvider!');
+
 
     await createUserWithEmailAndPassword(auth, email, password);
   };
