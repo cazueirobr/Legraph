@@ -1,5 +1,9 @@
-import React, { DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS } from 'react';
+import React, { DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS, useEffect, useState } from 'react';
 import { View, Text, FlatList, Image, StyleSheet } from 'react-native';
+import api from '../../services/api';
+
+
+const key = "";
 
 interface Partida {
     id: string;
@@ -66,6 +70,64 @@ const styles = StyleSheet.create({
 });
 
 const GamesScoreBoard = () => {
+
+
+  const [account, setAccount] = useState<{ puuid?: string }>({});
+  const [matches, setMatches] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchAccount = async () => {
+      try {
+
+        const response = await api.get(`/riot/account/v1/accounts/by-riot-id/cazueiro/BR1?api_key=${key}`);
+        setAccount(response.data); } 
+          catch (error) {
+            console.error('Não peguei a conta', error);
+      }
+};
+    fetchAccount();
+  }, []);
+
+
+
+  useEffect(() => {
+    const getMatchesId = async (puuid: string) => {
+      try {
+        const response = await api.get(`/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=10&api_key=${key}`);
+        setMatches(response.data);
+      } catch (error) {
+        console.error('Não achou partida', error);
+      }
+    };
+    if (account.puuid) {
+      getMatchesId(account.puuid);    }
+  }, [account.puuid]);
+
+console.log("PUUID: ", account.puuid);
+console.log("Matches: ", matches);
+
+
+const [matchDetails, setMatchDetails] = useState<string[]>([]);
+
+useEffect(() => {
+  const getMatchDetails = async (matchId: string) => {
+    try {
+      const response = await api.get(`/lol/match/v5/matches/${matchId}?api_key=${key}`);
+      setMatchDetails(response.data);
+    } catch (error) {
+      console.error('Você já sabe qual é a função que tá dando erro:', error);
+    }
+  };
+  if(matches){
+    getMatchDetails(matches[0])
+  }
+}, [matches]);
+
+
+console.log("Match details grosso sem tratativa: ", matchDetails.metadata.participants)
+console.log("Minhas estatisticas: ", matchDetails.info.participants[2])
+
+
   return (
     <FlatList
       data={partidaData}
