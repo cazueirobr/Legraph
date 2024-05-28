@@ -11,8 +11,14 @@ No futuro do app, pretendemos implementar um sistema de comparação entre jogad
 - [ x ] Editar perfil
 - [ x ] Busca por nickname
 - [ x ] Mostrar ultimas 5 partidas (ou mais, caso o jogador clique para vizualizar mais partidas)
-- [ x ] Graficos/esquemas de pontuação (KDA, Média de ouro por partida, taxa de vitória com x personagem, número de partidas totais jogadas)
+- [ ] Tabela main champion
+- [ x ] Tabela de invocador
+- [ x ] Historico de partidas
 
+### Para testar não se esqueça de gerar uma chave de API na Riot
+link > https://developer.riotgames.com/
+
+Coloque na variavel key em api.js dentro da pasta services
 
 ## Protótipos de tela
 Link > https://www.figma.com/file/jpSny0wSiix9DxCjY0jjLQ/Untitled?type=design&node-id=0%3A1&mode=design&t=Y5YybVWdQUQ9dDy5-1
@@ -27,6 +33,8 @@ Link > https://www.figma.com/file/jpSny0wSiix9DxCjY0jjLQ/Untitled?type=design&no
 
 ## Sprints
 
+### Previsão
+
 | Sprint                                      | Período                      | Objetivo                                                                |
 |---------------------------------------------|------------------------------|-------------------------------------------------------------------------|
 | :one: Tela de Login e Cadastro              | 06/04/2024 - 07/04/2024      | Desenvolver telas de login e cadastro                                   |
@@ -40,3 +48,16 @@ Link > https://www.figma.com/file/jpSny0wSiix9DxCjY0jjLQ/Untitled?type=design&no
 | :nine: Busca por Partidas                   | 08/06/2024 - 10/06/2024      | Implementar funcionalidade de busca por partidas e iniciar empacotamento |
 | :keycap_ten: Ajustes                        | 10/06/2024 - 16/06/2024      | Realizar ajustes necessários                                             |
 
+### Realidade
+| Sprint                                      | Período                      | Objetivo                                                                |
+|---------------------------------------------|------------------------------|-------------------------------------------------------------------------|
+| :one: Tela de Login e Cadastro              | 06/04/2024 - 07/04/2024      | Desenvolver telas de login e cadastro                                   |
+| :two: Tela Principal                        | 12/04/2024 - 14/04/2024      | Criar a tela principal do aplicativo                                    |
+| :three: Tela de Edição de Conta e Roteamento| 20/04/2024 - 21/04/2024      | Desenvolver tela de edição de conta e implementar roteamentos           |
+| :four: Ajustes                              | 26/04/2024 - 27/04/2024      | Realizar ajustes necessários                                             |
+| :five: Cadastro de Contas e Login           | 06/05/2024 - 20/05/2024      | Implementar funcionalidade de cadastro de contas e login                |
+| :six: Edição de Contas                      | 21/05/2024 - 22/05/2024      | Desenvolver funcionalidade de edição de contas                          |
+| :seven: Requisições de busca de jogador     | 22/05/2024 - 24/05/2024      | Implementar requisições de busca de jogador para a API da Riot Games     |
+| :eight: Cabeçalho de Invocador              | 01/06/2024 - 02/06/2024      | Desenvolver o cabeçalho de invocador                                    |
+| :nine: Busca por Partidas                   | 08/06/2024 - 10/06/2024      | Implementar funcionalidade de busca por partidas e iniciar empacotamento |
+| :keycap_ten: Ajustes                        | 10/06/2024 - 16/06/2024      | Realizar ajustes necessários                                             |

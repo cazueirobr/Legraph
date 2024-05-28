@@ -1,38 +1,22 @@
-import React, { DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, Image, StyleSheet } from 'react-native';
 import api from '../../services/api';
+import { Account, Partida } from '../../types/types';
+import useAuth from '../../firebase/hooks/useAuth';
+import useCollection from '../../firebase/hooks/useCollection';
 
 
-const key = "";
 
-interface Partida {
-    id: string;
-    personagem: any; 
-    mortes: number;
-    abates: number;
-    assistencias: number;
-    cs: number;
-    kda: string;
-    ranqueada: string;
-    vitoria: boolean;
-  }
-
-const partidaData = [
-  { id: '1', personagem: require('../../assets/headerImages/personagem1.jpg'), mortes: 5, abates: 10, assistencias: 8, cs: 200, kda: '10/5/8', ranqueada: 'Solo', vitoria: true },
-  { id: '2', personagem: require('../../assets/headerImages/personagem2.jpg'), mortes: 3, abates: 12, assistencias: 6, cs: 240, kda: '12/3/6', ranqueada: 'Duo', vitoria: false },
-  { id: '3', personagem: require('../../assets/headerImages/personagem2.jpg'), mortes: 3, abates: 12, assistencias: 6, cs: 240, kda: '12/3/6', ranqueada: 'Duo', vitoria: false },
-  { id: '4', personagem: require('../../assets/headerImages/personagem2.jpg'), mortes: 3, abates: 12, assistencias: 6, cs: 240, kda: '12/3/6', ranqueada: 'Duo', vitoria: false },
-  { id: '5', personagem: require('../../assets/headerImages/personagem2.jpg'), mortes: 3, abates: 12, assistencias: 6, cs: 240, kda: '12/3/6', ranqueada: 'Duo', vitoria: false },
-  { id: '6', personagem: require('../../assets/headerImages/personagem2.jpg'), mortes: 3, abates: 12, assistencias: 6, cs: 240, kda: '12/3/6', ranqueada: 'Duo', vitoria: false },
-  { id: '7', personagem: require('../../assets/headerImages/personagem2.jpg'), mortes: 3, abates: 12, assistencias: 6, cs: 240, kda: '12/3/6', ranqueada: 'Duo', vitoria: false },
-  { id: '8', personagem: require('../../assets/headerImages/personagem2.jpg'), mortes: 3, abates: 12, assistencias: 6, cs: 240, kda: '12/3/6', ranqueada: 'Duo', vitoria: false },
-];
+interface UserData {
+  account: Account;
+  matchesId: string[];
+}
 
 
 const PartidaItem = ({ item }: { item: Partida }) => (
   <View style={[styles.container, { backgroundColor: item.vitoria ? '#B3C7F8' : '#F8B3B3' }]}>
     <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10 }}>
-      <Image source={item.personagem} style={styles.imagem} />
+      <Image source={{ uri: `https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${item.personagem}.png` }} style={styles.imagem} />
       <View style={{ marginLeft: 10, flex: 1 }}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5 }}>
           <Text style={{ fontWeight: 'bold', fontSize: 18 }}>{item.abates}/{item.mortes}/{item.assistencias}</Text>
@@ -42,7 +26,6 @@ const PartidaItem = ({ item }: { item: Partida }) => (
         <Text>CS: {item.cs}</Text>
       </View>
     </View>
-
     <View style={styles.bottomContainer}>
       <Text style={{ fontWeight: 'bold', fontSize: 18 }}>Ranqueada: {item.ranqueada}</Text>
     </View>
@@ -70,69 +53,81 @@ const styles = StyleSheet.create({
 });
 
 const GamesScoreBoard = () => {
+  const { user, logout, loading: authLoading } = useAuth();
+  const { getById, update, loading: docLoading } = useCollection('Accounts');
 
 
-  const [account, setAccount] = useState<{ puuid?: string }>({});
-  const [matches, setMatches] = useState<string[]>([]);
-
-  useEffect(() => {
-    const fetchAccount = async () => {
-      try {
-
-        const response = await api.get(`/riot/account/v1/accounts/by-riot-id/cazueiro/BR1?api_key=${key}`);
-        setAccount(response.data); } 
-          catch (error) {
-            console.error('Não peguei a conta', error);
-      }
-};
-    fetchAccount();
-  }, []);
+  const [data, setData] = useState<UserData>();
+  const [gamesData, setGamesData] = useState<Partida[]>([]);
 
 
-
-  useEffect(() => {
-    const getMatchesId = async (puuid: string) => {
-      try {
-        const response = await api.get(`/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=10&api_key=${key}`);
-        setMatches(response.data);
-      } catch (error) {
-        console.error('Não achou partida', error);
-      }
-    };
-    if (account.puuid) {
-      getMatchesId(account.puuid);    }
-  }, [account.puuid]);
-
-console.log("PUUID: ", account.puuid);
-console.log("Matches: ", matches);
-
-
-const [matchDetails, setMatchDetails] = useState<string[]>([]);
-
-useEffect(() => {
-  const getMatchDetails = async (matchId: string) => {
+  const fetchData = async () => {
     try {
-      const response = await api.get(`/lol/match/v5/matches/${matchId}?api_key=${key}`);
-      setMatchDetails(response.data);
+      if (user && user.email) {
+        const userData = await getById(user.email as string);
+        if (userData && userData.nickName) {
+          const parts = userData.nickName.split('#');
+  
+          const justNickname = parts[0];
+          const tag = parts[1];
+
+          const accountResponse = await api.instance.get(`/riot/account/v1/accounts/by-riot-id/${justNickname}/${tag}?api_key=${api.key}`);
+          const account = accountResponse.data;
+          const matchesIdResponse = await api.instance.get(`/lol/match/v5/matches/by-puuid/${account.puuid}/ids?start=0&count=10&api_key=${api.key}`);
+          const matchesId = matchesIdResponse.data;
+  
+          const matchesDetailsPromises = matchesId.map(async (element: string) => {
+            const matchDetailResponse = await api.instance.get(`/lol/match/v5/matches/${element}?api_key=${api.key}`);
+            const matchDetail = matchDetailResponse.data;
+            const participants = matchDetail.info.participants;
+            const participantIndex = participants.findIndex((p: any) => p.puuid === account.puuid);
+  
+            if (participantIndex !== -1) {
+              const participant = participants[participantIndex];
+  
+              const partida: Partida = {
+                id: element,
+                personagem: participant.championName,
+                mortes: participant.deaths,
+                abates: participant.kills,
+                assistencias: participant.assists,
+                cs: participant.totalMinionsKilled + participant.neutralMinionsKilled,
+                kda: ((participant.kills + participant.assists) / participant.deaths).toFixed(1),
+                ranqueada: matchDetail.info.gameMode,
+                vitoria: participant.win,
+              };
+  
+              return partida;
+            }
+            return null;
+          });
+  
+          const matchesDetails = (await Promise.all(matchesDetailsPromises)).filter((match) => match !== null) as Partida[];
+  
+          setGamesData(matchesDetails);
+          setData({
+            account,
+            matchesId,
+          });
+        }
+      }
     } catch (error) {
-      console.error('Você já sabe qual é a função que tá dando erro:', error);
+      console.error(error);
     }
   };
-  if(matches){
-    getMatchDetails(matches[0])
-  }
-}, [matches]);
+  
 
-
-console.log("Match details grosso sem tratativa: ", matchDetails.metadata.participants)
-console.log("Minhas estatisticas: ", matchDetails.info.participants[2])
-
+  useEffect(() => {
+    fetchData();
+  }, [user]);
+  
+  if (!data) return <Text>Loading...</Text>;
 
   return (
     <FlatList
-      data={partidaData}
+      data={gamesData}
       renderItem={({ item }) => <PartidaItem item={item} />}
-      keyExtractor={item => item.id}
+      keyExtractor={(item) => item.id}
     />
   );
 };

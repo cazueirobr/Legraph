@@ -112,7 +112,7 @@ export default function EditUser() {
           onPress={handleUpdate}
         />
         <Buttons
-          backgroundColor='#7FDBE0'
+          backgroundColor='#FF0000'
           title='Logout'
           onPress={handleLogout}
         />

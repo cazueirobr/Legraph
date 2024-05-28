@@ -4,4 +4,11 @@ const instance = axios.create({
     baseURL: "https://americas.api.riotgames.com/"
 })
 
-export default instance;
+const brasil = axios.create({
+    baseURL: "https://br1.api.riotgames.com"
+})
+
+const key = "";
+
+
+export default {instance, brasil, key};

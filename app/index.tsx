@@ -14,8 +14,8 @@ export default function Page() {
   const { user, login, loading } = useAuth();
   const router = useRouter();
 
-  const [email, setEmail] = useState("zed@hotmail.com")
-  const [password, setPassword] = useState("Chataben10")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   
   const handlePress = 
     async () => {
