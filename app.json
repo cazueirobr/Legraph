@@ -21,7 +21,9 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "versionCode": 1,
+      "package": "com.matheus.legraph"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -29,6 +31,14 @@
     "plugins": [
       "expo-router",
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "90fa1ba4-3b0a-4bd4-8450-c265083f7ae8"
+      }
+    }
   }
 }
